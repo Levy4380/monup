@@ -448,7 +448,7 @@
         <p class="eyebrow">Contacto</p>
         <h2 id="contact-title">Escribime y arrancamos</h2>
         <p class="section-lead">
-          Completá el formulario y te abro un chat de WhatsApp con tu mensaje listo para enviar.
+          Completá el formulario y la seguimos por WhatsApp.
         </p>
 
         <form id="contact-form" novalidate>
@@ -466,7 +466,7 @@
             Mensaje
             <textarea name="mensaje" id="mensaje" required placeholder="Contame tu nivel, objetivos o dudas…"></textarea>
           </label>
-          <p class="form-note">Al enviar se abre WhatsApp con un mensaje prearmado. No se envía ningún mail.</p>
+          <p class="form-note">Hablemos por WhatsApp.</p>
           <button class="btn btn-primary btn-submit" type="submit">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M12.04 2C6.58 2 2.15 6.4 2.15 11.83c0 2.08.62 4.02 1.7 5.65L2 22l4.7-1.77a9.8 9.8 0 0 0 5.34 1.56h.01c5.46 0 9.89-4.4 9.89-9.83C21.94 6.4 17.5 2 12.04 2Zm5.74 13.95c-.24.67-1.4 1.23-1.93 1.31-.5.07-1.12.1-1.81-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.78-4.17-4.93-4.36-.14-.2-1.2-1.6-1.2-3.05 0-1.46.76-2.17 1.03-2.47.27-.3.59-.37.79-.37h.57c.18 0 .42-.07.66.5.24.58.82 2 .89 2.15.07.14.12.32.02.51-.1.2-.15.32-.3.49-.14.17-.3.38-.43.51-.14.14-.29.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.94 1.96 1.23 2.24 1.37.28.14.44.12.6-.07.17-.2.7-.81.89-1.09.18-.28.37-.23.62-.14.26.1 1.64.77 1.92.91.28.14.47.21.54.33.07.12.07.7-.17 1.37Z"/>
@@ -503,9 +503,9 @@
       }
 
       const texto =
-        "Soy " + nombre + " " + apellido +
-        " y estoy interesado en mejorar mi escalada.\n" +
-        "mensaje " + mensaje;
+        "Nombre: " + nombre + " " + apellido +
+        "Tu mensaje: \n" + 
+        mensaje;
 
       const url =
         "https://wa.me/" + WHATSAPP_NUMBER +
