@@ -503,7 +503,7 @@
       }
 
       const texto =
-        "Nombre: " + nombre + " " + apellido +
+        "Nombre: " + nombre + " " + apellido + "\n" +
         "Tu mensaje: \n" + 
         mensaje;
 
