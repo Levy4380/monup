@@ -443,35 +443,51 @@
       </div>
     </section>
 
+@endverbatim
+
     <section class="section contact" id="contacto" aria-labelledby="contact-title">
       <div class="contact-inner">
         <p class="eyebrow">Contacto</p>
         <h2 id="contact-title">Escribime y arrancamos</h2>
         <p class="section-lead">
-          Completá el formulario y la seguimos por WhatsApp.
+          Completá el formulario y te respondo a la brevedad.
         </p>
 
-        <form id="contact-form" novalidate>
+        @if (session('success'))
+          <p class="form-note" role="status">{{ session('success') }}</p>
+        @endif
+
+        @if ($errors->any())
+          <ul class="form-note" role="alert">
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        @endif
+
+        <form id="contact-form" method="POST" action="{{ route('contact.store') }}">
+          @csrf
           <div class="row-2">
             <label>
               Nombre
-              <input type="text" name="nombre" id="nombre" autocomplete="given-name" required placeholder="Tu nombre" />
+              <input type="text" name="nombre" id="nombre" autocomplete="given-name" required placeholder="Tu nombre" value="{{ old('nombre') }}" />
             </label>
             <label>
               Apellido
-              <input type="text" name="apellido" id="apellido" autocomplete="family-name" required placeholder="Tu apellido" />
+              <input type="text" name="apellido" id="apellido" autocomplete="family-name" required placeholder="Tu apellido" value="{{ old('apellido') }}" />
             </label>
           </div>
           <label>
             Mensaje
-            <textarea name="mensaje" id="mensaje" required placeholder="Contame tu nivel, objetivos o dudas…"></textarea>
+            <textarea name="mensaje" id="mensaje" required placeholder="Contame tu nivel, objetivos o dudas…">{{ old('mensaje') }}</textarea>
           </label>
-          <p class="form-note">Hablemos por WhatsApp.</p>
+          <p class="form-note">Te escribo a la brevedad.</p>
           <button class="btn btn-primary btn-submit" type="submit">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12.04 2C6.58 2 2.15 6.4 2.15 11.83c0 2.08.62 4.02 1.7 5.65L2 22l4.7-1.77a9.8 9.8 0 0 0 5.34 1.56h.01c5.46 0 9.89-4.4 9.89-9.83C21.94 6.4 17.5 2 12.04 2Zm5.74 13.95c-.24.67-1.4 1.23-1.93 1.31-.5.07-1.12.1-1.81-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.78-4.17-4.93-4.36-.14-.2-1.2-1.6-1.2-3.05 0-1.46.76-2.17 1.03-2.47.27-.3.59-.37.79-.37h.57c.18 0 .42-.07.66.5.24.58.82 2 .89 2.15.07.14.12.32.02.51-.1.2-.15.32-.3.49-.14.17-.3.38-.43.51-.14.14-.29.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.94 1.96 1.23 2.24 1.37.28.14.44.12.6-.07.17-.2.7-.81.89-1.09.18-.28.37-.23.62-.14.26.1 1.64.77 1.92.91.28.14.47.21.54.33.07.12.07.7-.17 1.37Z"/>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 2L11 13"/>
+              <path d="M22 2L15 22L11 13L2 9L22 2Z"/>
             </svg>
-            Abrir WhatsApp
+            Enviar
           </button>
         </form>
       </div>
@@ -484,37 +500,7 @@
   </footer>
 
   <script>
-    // Reemplazá con el número de WhatsApp (código país + número, sin + ni espacios).
-    // Ejemplo Argentina: 54911XXXXXXXX
-    const WHATSAPP_NUMBER = "5492966691988";
-
     document.getElementById("year").textContent = new Date().getFullYear();
-
-    document.getElementById("contact-form").addEventListener("submit", function (event) {
-      event.preventDefault();
-
-      const nombre = document.getElementById("nombre").value.trim();
-      const apellido = document.getElementById("apellido").value.trim();
-      const mensaje = document.getElementById("mensaje").value.trim();
-
-      if (!nombre || !apellido || !mensaje) {
-        alert("Completá nombre, apellido y mensaje para continuar.");
-        return;
-      }
-
-      const texto =
-        "Nombre: " + nombre + " " + apellido + "\n" +
-        "Tu mensaje: \n" + 
-        mensaje;
-
-      const url =
-        "https://wa.me/" + WHATSAPP_NUMBER +
-        "?text=" + encodeURIComponent(texto);
-
-      window.open(url, "_blank", "noopener,noreferrer");
-    });
   </script>
 </body>
 </html>
-
-@endverbatim
