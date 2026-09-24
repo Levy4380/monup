@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'landing');
 
+Route::view('/formulario', 'formulario')->name('formulario');
+
 Route::post('/contacto', [ContactoController::class, 'store'])
     ->middleware('throttle:10,1')
     ->name('contact.store');

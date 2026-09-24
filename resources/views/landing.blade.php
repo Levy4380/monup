@@ -278,7 +278,7 @@
     }
 
     .contact-inner {
-      max-width: 720px;
+      max-width: 640px;
       margin: 0 auto;
     }
 
@@ -329,27 +329,6 @@
     textarea {
       min-height: 140px;
       resize: vertical;
-    }
-
-    .choices {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem 1.25rem;
-      padding-top: 0.15rem;
-    }
-
-    .choices label {
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      font-weight: 400;
-      color: rgba(244, 242, 239, 0.85);
-    }
-
-    .choices input {
-      width: auto;
-      margin: 0;
-      accent-color: var(--orange);
     }
 
     .form-note {
@@ -464,118 +443,35 @@
       </div>
     </section>
 
-@endverbatim
-
     <section class="section contact" id="contacto" aria-labelledby="contact-title">
       <div class="contact-inner">
         <p class="eyebrow">Contacto</p>
         <h2 id="contact-title">Escribime y arrancamos</h2>
         <p class="section-lead">
-          Completá el formulario y te respondo a la brevedad.
+          Completá el formulario y la seguimos por WhatsApp.
         </p>
 
-        @if (session('success'))
-          <p class="form-note" role="status">{{ session('success') }}</p>
-        @endif
-
-        @if ($errors->any())
-          <ul class="form-note" role="alert">
-            @foreach ($errors->all() as $error)
-              <li>{{ $error }}</li>
-            @endforeach
-          </ul>
-        @endif
-
-        <form id="contact-form" method="POST" action="{{ route('contact.store') }}">
-          @csrf
-          <label>
-            Nombre completo
-            <input type="text" name="nombre_completo" id="nombre_completo" autocomplete="name" required maxlength="120" placeholder="Tu nombre completo" value="{{ old('nombre_completo') }}" />
-          </label>
+        <form id="contact-form" novalidate>
           <div class="row-2">
             <label>
-              Correo
-              <input type="email" name="correo" id="correo" autocomplete="email" required maxlength="120" placeholder="tu@email.com" value="{{ old('correo') }}" />
+              Nombre
+              <input type="text" name="nombre" id="nombre" autocomplete="given-name" required placeholder="Tu nombre" />
             </label>
             <label>
-              Teléfono
-              <input type="tel" name="telefono" id="telefono" autocomplete="tel" required maxlength="40" placeholder="+54 …" value="{{ old('telefono') }}" />
+              Apellido
+              <input type="text" name="apellido" id="apellido" autocomplete="family-name" required placeholder="Tu apellido" />
             </label>
           </div>
-          <div class="row-2">
-            <label>
-              Fecha de nacimiento
-              <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" required value="{{ old('fecha_nacimiento') }}" />
-            </label>
-            <label>
-              Ciudad
-              <input type="text" name="ciudad" id="ciudad" autocomplete="address-level2" required maxlength="100" placeholder="Tu ciudad" value="{{ old('ciudad') }}" />
-            </label>
-          </div>
-          <div class="row-2">
-            <label>
-              Nivel de escalada
-              <input type="text" name="nivel_escalada" id="nivel_escalada" required maxlength="100" placeholder="Ej: V4 / 6a" value="{{ old('nivel_escalada') }}" />
-            </label>
-            <label>
-              ¿Hace cuánto que escalas? (Tiempo)
-              <input type="text" name="tiempo_escalando" id="tiempo_escalando" required maxlength="100" placeholder="Ej: 2 años" value="{{ old('tiempo_escalando') }}" />
-            </label>
-          </div>
-          <fieldset style="border:0;padding:0;margin:0">
-            <legend style="font-size:0.88rem;font-weight:500;color:rgba(244,242,239,0.7);margin-bottom:0.4rem">Modalidad de escalada que practicás</legend>
-            <div class="choices">
-              <label>
-                <input type="checkbox" name="modalidad[]" value="boulder" @checked(in_array('boulder', old('modalidad', []), true)) />
-                Boulder
-              </label>
-              <label>
-                <input type="checkbox" name="modalidad[]" value="deportiva" @checked(in_array('deportiva', old('modalidad', []), true)) />
-                Deportiva
-              </label>
-            </div>
-          </fieldset>
           <label>
-            ¿Cuál es tu objetivo principal?
-            <textarea name="objetivo_principal" id="objetivo_principal" required maxlength="400" placeholder="Contame tu objetivo…">{{ old('objetivo_principal') }}</textarea>
+            Mensaje
+            <textarea name="mensaje" id="mensaje" required placeholder="Contame tu nivel, objetivos o dudas…"></textarea>
           </label>
-          <fieldset style="border:0;padding:0;margin:0">
-            <legend style="font-size:0.88rem;font-weight:500;color:rgba(244,242,239,0.7);margin-bottom:0.4rem">¿Tuviste o tenés lesiones?</legend>
-            <div class="choices">
-              <label>
-                <input type="radio" name="lesiones" value="si" required @checked(old('lesiones') === 'si') />
-                Sí
-              </label>
-              <label>
-                <input type="radio" name="lesiones" value="no" @checked(old('lesiones') === 'no') />
-                No
-              </label>
-            </div>
-          </fieldset>
-          <label>
-            Explicación de la lesión
-            <textarea name="lesion_explicacion" id="lesion_explicacion" maxlength="400" placeholder="Si aplica, contanos brevemente…">{{ old('lesion_explicacion') }}</textarea>
-          </label>
-          <label>
-            ¿Algún otro dato relevante que debamos saber sobre vos?
-            <textarea name="dato_relevante" id="dato_relevante" maxlength="400" placeholder="Opcional">{{ old('dato_relevante') }}</textarea>
-          </label>
-          <fieldset style="border:0;padding:0;margin:0">
-            <legend style="font-size:0.88rem;font-weight:500;color:rgba(244,242,239,0.7);margin-bottom:0.4rem">¿Alguna vez entrenaste de manera online?</legend>
-            <div class="choices">
-              <label>
-                <input type="radio" name="entrenamiento_online" value="si" required @checked(old('entrenamiento_online') === 'si') />
-                Sí
-              </label>
-              <label>
-                <input type="radio" name="entrenamiento_online" value="no" @checked(old('entrenamiento_online') === 'no') />
-                No
-              </label>
-            </div>
-          </fieldset>
-          <p class="form-note">Te escribo a la brevedad.</p>
+          <p class="form-note">Hablemos por WhatsApp.</p>
           <button class="btn btn-primary btn-submit" type="submit">
-            Empeza a subir de grado
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12.04 2C6.58 2 2.15 6.4 2.15 11.83c0 2.08.62 4.02 1.7 5.65L2 22l4.7-1.77a9.8 9.8 0 0 0 5.34 1.56h.01c5.46 0 9.89-4.4 9.89-9.83C21.94 6.4 17.5 2 12.04 2Zm5.74 13.95c-.24.67-1.4 1.23-1.93 1.31-.5.07-1.12.1-1.81-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.78-4.17-4.93-4.36-.14-.2-1.2-1.6-1.2-3.05 0-1.46.76-2.17 1.03-2.47.27-.3.59-.37.79-.37h.57c.18 0 .42-.07.66.5.24.58.82 2 .89 2.15.07.14.12.32.02.51-.1.2-.15.32-.3.49-.14.17-.3.38-.43.51-.14.14-.29.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.94 1.96 1.23 2.24 1.37.28.14.44.12.6-.07.17-.2.7-.81.89-1.09.18-.28.37-.23.62-.14.26.1 1.64.77 1.92.91.28.14.47.21.54.33.07.12.07.7-.17 1.37Z"/>
+            </svg>
+            Abrir WhatsApp
           </button>
         </form>
       </div>
@@ -588,7 +484,35 @@
   </footer>
 
   <script>
+    const WHATSAPP_NUMBER = "5492966691988";
+
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    document.getElementById("contact-form").addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const nombre = document.getElementById("nombre").value.trim();
+      const apellido = document.getElementById("apellido").value.trim();
+      const mensaje = document.getElementById("mensaje").value.trim();
+
+      if (!nombre || !apellido || !mensaje) {
+        alert("Completá nombre, apellido y mensaje para continuar.");
+        return;
+      }
+
+      const texto =
+        "Nombre: " + nombre + " " + apellido + "\n" +
+        "Tu mensaje: \n" +
+        mensaje;
+
+      const url =
+        "https://wa.me/" + WHATSAPP_NUMBER +
+        "?text=" + encodeURIComponent(texto);
+
+      window.open(url, "_blank", "noopener,noreferrer");
+    });
   </script>
 </body>
 </html>
+
+@endverbatim

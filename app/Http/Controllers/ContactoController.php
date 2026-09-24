@@ -28,6 +28,8 @@ class ContactoController extends Controller
             ]),
         ]);
 
-        return back()->with('success', 'Mensaje enviado. Te respondo pronto.');
+        return redirect()
+            ->route('formulario')
+            ->with('success', 'Mensaje enviado. Te respondo pronto.');
     }
 }

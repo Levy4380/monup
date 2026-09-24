@@ -7,6 +7,8 @@ use Illuminate\Validation\Rule;
 
 class StoreContactoRequest extends FormRequest
 {
+    protected $redirectRoute = 'formulario';
+
     public function authorize(): bool
     {
         return true;

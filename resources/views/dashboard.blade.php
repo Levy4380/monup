@@ -85,6 +85,20 @@
 
         .btn-ghost:hover { border-color: var(--orange); color: var(--orange); }
 
+        .copy-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .copy-bar .status {
+            font-size: 0.9rem;
+            color: var(--orange-deep);
+            min-height: 1.2em;
+        }
+
         .panel {
             background: #fff;
             border: 1px solid var(--line);
@@ -132,6 +146,12 @@
 </head>
 <body>
     <div class="wrap">
+        <div class="copy-bar">
+            <button class="btn btn-primary" type="button" id="copy-form-link" data-url="{{ route('formulario') }}">
+                Copiar link de formulario
+            </button>
+            <span class="status" id="copy-form-status" aria-live="polite"></span>
+        </div>
         <header>
             <div>
                 <p class="brand">MonUP</p>
@@ -174,5 +194,18 @@
             @endif
         </div>
     </div>
+    <script>
+        document.getElementById('copy-form-link').addEventListener('click', async function () {
+            const status = document.getElementById('copy-form-status');
+            const url = this.dataset.url;
+
+            try {
+                await navigator.clipboard.writeText(url);
+                status.textContent = 'Link copiado.';
+            } catch (error) {
+                status.textContent = url;
+            }
+        });
+    </script>
 </body>
 </html>
