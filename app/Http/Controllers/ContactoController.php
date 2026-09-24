@@ -11,7 +11,21 @@ class ContactoController extends Controller
     public function store(StoreContactoRequest $request): RedirectResponse
     {
         Contacto::query()->create([
-            'payload' => $request->safe()->only(['nombre', 'apellido', 'mensaje']),
+            'payload' => $request->safe()->only([
+                'nombre_completo',
+                'correo',
+                'telefono',
+                'fecha_nacimiento',
+                'ciudad',
+                'nivel_escalada',
+                'tiempo_escalando',
+                'modalidad',
+                'objetivo_principal',
+                'lesiones',
+                'lesion_explicacion',
+                'dato_relevante',
+                'entrenamiento_online',
+            ]),
         ]);
 
         return back()->with('success', 'Mensaje enviado. Te respondo pronto.');

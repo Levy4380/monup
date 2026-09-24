@@ -16,4 +16,9 @@ class DashboardController extends Controller
 
         return view('dashboard', compact('contactos'));
     }
+
+    public function show(Contacto $contacto): View
+    {
+        return view('dashboard-show', compact('contacto'));
+    }
 }

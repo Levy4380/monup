@@ -278,7 +278,7 @@
     }
 
     .contact-inner {
-      max-width: 640px;
+      max-width: 720px;
       margin: 0 auto;
     }
 
@@ -329,6 +329,27 @@
     textarea {
       min-height: 140px;
       resize: vertical;
+    }
+
+    .choices {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.25rem;
+      padding-top: 0.15rem;
+    }
+
+    .choices label {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-weight: 400;
+      color: rgba(244, 242, 239, 0.85);
+    }
+
+    .choices input {
+      width: auto;
+      margin: 0;
+      accent-color: var(--orange);
     }
 
     .form-note {
@@ -467,27 +488,94 @@
 
         <form id="contact-form" method="POST" action="{{ route('contact.store') }}">
           @csrf
+          <label>
+            Nombre completo
+            <input type="text" name="nombre_completo" id="nombre_completo" autocomplete="name" required maxlength="120" placeholder="Tu nombre completo" value="{{ old('nombre_completo') }}" />
+          </label>
           <div class="row-2">
             <label>
-              Nombre
-              <input type="text" name="nombre" id="nombre" autocomplete="given-name" required placeholder="Tu nombre" value="{{ old('nombre') }}" />
+              Correo
+              <input type="email" name="correo" id="correo" autocomplete="email" required maxlength="120" placeholder="tu@email.com" value="{{ old('correo') }}" />
             </label>
             <label>
-              Apellido
-              <input type="text" name="apellido" id="apellido" autocomplete="family-name" required placeholder="Tu apellido" value="{{ old('apellido') }}" />
+              Teléfono
+              <input type="tel" name="telefono" id="telefono" autocomplete="tel" required maxlength="40" placeholder="+54 …" value="{{ old('telefono') }}" />
             </label>
           </div>
+          <div class="row-2">
+            <label>
+              Fecha de nacimiento
+              <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" required value="{{ old('fecha_nacimiento') }}" />
+            </label>
+            <label>
+              Ciudad
+              <input type="text" name="ciudad" id="ciudad" autocomplete="address-level2" required maxlength="100" placeholder="Tu ciudad" value="{{ old('ciudad') }}" />
+            </label>
+          </div>
+          <div class="row-2">
+            <label>
+              Nivel de escalada
+              <input type="text" name="nivel_escalada" id="nivel_escalada" required maxlength="100" placeholder="Ej: V4 / 6a" value="{{ old('nivel_escalada') }}" />
+            </label>
+            <label>
+              ¿Hace cuánto que escalas? (Tiempo)
+              <input type="text" name="tiempo_escalando" id="tiempo_escalando" required maxlength="100" placeholder="Ej: 2 años" value="{{ old('tiempo_escalando') }}" />
+            </label>
+          </div>
+          <fieldset style="border:0;padding:0;margin:0">
+            <legend style="font-size:0.88rem;font-weight:500;color:rgba(244,242,239,0.7);margin-bottom:0.4rem">Modalidad de escalada que practicás</legend>
+            <div class="choices">
+              <label>
+                <input type="checkbox" name="modalidad[]" value="boulder" @checked(in_array('boulder', old('modalidad', []), true)) />
+                Boulder
+              </label>
+              <label>
+                <input type="checkbox" name="modalidad[]" value="deportiva" @checked(in_array('deportiva', old('modalidad', []), true)) />
+                Deportiva
+              </label>
+            </div>
+          </fieldset>
           <label>
-            Mensaje
-            <textarea name="mensaje" id="mensaje" required placeholder="Contame tu nivel, objetivos o dudas…">{{ old('mensaje') }}</textarea>
+            ¿Cuál es tu objetivo principal?
+            <textarea name="objetivo_principal" id="objetivo_principal" required maxlength="400" placeholder="Contame tu objetivo…">{{ old('objetivo_principal') }}</textarea>
           </label>
+          <fieldset style="border:0;padding:0;margin:0">
+            <legend style="font-size:0.88rem;font-weight:500;color:rgba(244,242,239,0.7);margin-bottom:0.4rem">¿Tuviste o tenés lesiones?</legend>
+            <div class="choices">
+              <label>
+                <input type="radio" name="lesiones" value="si" required @checked(old('lesiones') === 'si') />
+                Sí
+              </label>
+              <label>
+                <input type="radio" name="lesiones" value="no" @checked(old('lesiones') === 'no') />
+                No
+              </label>
+            </div>
+          </fieldset>
+          <label>
+            Explicación de la lesión
+            <textarea name="lesion_explicacion" id="lesion_explicacion" maxlength="400" placeholder="Si aplica, contanos brevemente…">{{ old('lesion_explicacion') }}</textarea>
+          </label>
+          <label>
+            ¿Algún otro dato relevante que debamos saber sobre vos?
+            <textarea name="dato_relevante" id="dato_relevante" maxlength="400" placeholder="Opcional">{{ old('dato_relevante') }}</textarea>
+          </label>
+          <fieldset style="border:0;padding:0;margin:0">
+            <legend style="font-size:0.88rem;font-weight:500;color:rgba(244,242,239,0.7);margin-bottom:0.4rem">¿Alguna vez entrenaste de manera online?</legend>
+            <div class="choices">
+              <label>
+                <input type="radio" name="entrenamiento_online" value="si" required @checked(old('entrenamiento_online') === 'si') />
+                Sí
+              </label>
+              <label>
+                <input type="radio" name="entrenamiento_online" value="no" @checked(old('entrenamiento_online') === 'no') />
+                No
+              </label>
+            </div>
+          </fieldset>
           <p class="form-note">Te escribo a la brevedad.</p>
           <button class="btn btn-primary btn-submit" type="submit">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M22 2L11 13"/>
-              <path d="M22 2L15 22L11 13L2 9L22 2Z"/>
-            </svg>
-            Enviar
+            Empeza a subir de grado
           </button>
         </form>
       </div>
