@@ -35,24 +35,45 @@
                 var(--ink);
         }
 
+        .form-header {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            padding: max(1rem, env(safe-area-inset-top)) 1rem 1.75rem;
+            background: linear-gradient(
+                180deg,
+                rgba(255, 255, 255, 0.5) 0%,
+                rgba(255, 255, 255, 0.4) 16%,
+                rgba(255, 255, 255, 0.3) 34%,
+                rgba(255, 255, 255, 0.21) 50%,
+                rgba(255, 255, 255, 0.14) 64%,
+                rgba(255, 255, 255, 0.08) 76%,
+                rgba(255, 255, 255, 0.04) 88%,
+                rgba(255, 255, 255, 0) 100%
+            );
+        }
+
+        .form-header h1 {
+            margin: 0;
+            font-size: 0;
+            line-height: 0;
+        }
+
+        .form-header svg {
+            display: block;
+            width: min(9.5rem, 46vw);
+            height: auto;
+            aspect-ratio: 1339.13 / 445;
+        }
+
         .wrap {
             width: min(100% - 2rem, 720px);
             margin: 0 auto;
-            padding: 2.5rem 0 3.5rem;
+            padding: 2rem 0 3.5rem;
         }
-
-        .brand {
-            margin: 0 0 0.4rem;
-            font-weight: 800;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            color: var(--orange);
-        }
-
-        h1 { margin: 0 0 0.4rem; font-size: clamp(1.6rem, 4vw, 2.1rem); }
 
         .lead {
-            margin: 0 0 1.75rem;
+            margin: 0.5rem 0 1.75rem;
             color: rgba(244, 242, 239, 0.7);
         }
 
@@ -129,8 +150,13 @@
 </head>
 
 <body>
+    <header class="form-header">
+        <h1>
+            {!! str_replace('<svg ', '<svg role="img" aria-label="MonUP" ', file_get_contents(public_path('logo-black-horizontal.svg'))) !!}
+        </h1>
+    </header>
+
     <div class="wrap">
-        <h1>Monup</h1>
         <p class="lead">Responde estas preguntas para que te podamos dar la solución más personalizada</p>
 
         @if ($errors->any())
