@@ -119,6 +119,15 @@
         .errors { margin: 0 0 1rem; padding-left: 1.1rem; color: #ffb4a8; }
     </style>
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P81HV53SFF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-P81HV53SFF');
+</script>
 <body>
     <div class="wrap">
         <p class="brand">MonUP</p>
