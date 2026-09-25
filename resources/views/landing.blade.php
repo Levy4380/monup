@@ -1,4 +1,3 @@
-@verbatim
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -19,6 +18,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
+@verbatim
     :root {
       --orange: #f15a24;
       --orange-deep: #d44512;
@@ -75,7 +75,8 @@
       align-items: center;
     }
 
-    .brand img {
+    .brand svg {
+      display: block;
       height: 3.15rem;
       width: auto;
     }
@@ -98,7 +99,7 @@
     .ig-link svg { width: 22px; height: 22px; }
 
     @media (max-width: 640px) {
-      .brand img { height: 2.45rem; }
+      .brand svg { height: 2.45rem; }
       .ig-link { font-size: 0.95rem; }
       .ig-link svg { width: 20px; height: 20px; }
     }
@@ -167,10 +168,10 @@
       margin: 0 0 1rem;
     }
 
-    .hero-title img {
+    .hero-title svg {
       display: block;
-      height: clamp(8.5rem, 30vh, 13.5rem);
-      width: auto;
+      height: auto;
+      width: min(100%, calc(clamp(8.5rem, 30vh, 13.5rem) * 770 / 620));
     }
 
     .hero-lead {
@@ -442,12 +443,13 @@
         transform: none;
       }
     }
+@endverbatim
   </style>
 </head>
 <body>
   <header class="topbar">
     <a class="brand" href="#top">
-      <img src="/logo-black-horizontal.svg" alt="MonUP">
+      {!! str_replace('<svg ', '<svg role="img" aria-label="MonUP" ', file_get_contents(public_path('logo-black-horizontal.svg'))) !!}
     </a>
     <a class="ig-link" href="https://www.instagram.com/monupclimb/" target="_blank" rel="noopener noreferrer">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
@@ -455,7 +457,7 @@
         <circle cx="12" cy="12" r="4"/>
         <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
       </svg>
-      @monupclimb
+      @@monupclimb
     </a>
   </header>
 
@@ -466,7 +468,7 @@
       <div class="hero-copy">
         <p class="hero-brand">Mon<span>UP</span></p>
         <h1 class="hero-title">
-          <img src="/logo-black.svg" alt="Entrenamiento de escalada 100% online">
+          {!! str_replace('<svg ', '<svg role="img" aria-label="Entrenamiento de escalada 100% online" ', file_get_contents(public_path('logo-black.svg'))) !!}
         </h1>
         <p class="hero-lead">Entendé cómo subir tu grado con un plan pensado para vos.</p>
         <div class="cta-row">
@@ -584,5 +586,3 @@
   </script>
 </body>
 </html>
-
-@endverbatim
