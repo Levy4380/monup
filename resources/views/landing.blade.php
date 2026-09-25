@@ -540,7 +540,7 @@
   </footer>
 
   <script>
-    const WHATSAPP_NUMBER = "5492966691988";
+    const WHATSAPP_NUMBER = "5492966275693";
 
     document.getElementById("year").textContent = new Date().getFullYear();
 
