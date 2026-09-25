@@ -55,11 +55,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.7rem clamp(1.25rem, 4vw, 3rem) 2.75rem;
+      padding: 0.7rem clamp(1.25rem, 4vw, 3rem) 0.7rem;
       background: linear-gradient(
         180deg,
-        rgba(255, 255, 255, 0.42) 0%,
-        rgba(255, 255, 255, 0.18) 46%,
+        rgba(255, 255, 255, 0.5) 0%,
+        rgba(255, 255, 255, 0.2) 60%,
         rgba(255, 255, 255, 0) 100%
       );
       animation: fadeDown 0.9s var(--ease) both;
