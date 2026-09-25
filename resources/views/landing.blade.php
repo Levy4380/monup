@@ -31,14 +31,20 @@
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      overflow-x: clip;
+      max-width: 100%;
+    }
 
     body {
       font-family: "Outfit", sans-serif;
       color: var(--chalk);
       background: var(--ink);
       line-height: 1.5;
-      overflow-x: hidden;
+      overflow-x: clip;
+      max-width: 100%;
+      overscroll-behavior-x: none;
     }
 
     img { max-width: 100%; display: block; }
@@ -55,7 +61,25 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.7rem clamp(1.25rem, 4vw, 3rem) 0.7rem;
+      gap: 0.75rem;
+      max-width: 100%;
+      overflow: hidden;
+      padding: max(0.7rem, env(safe-area-inset-top)) max(clamp(1rem, 4vw, 3rem), env(safe-area-inset-right)) 0.7rem max(clamp(1rem, 4vw, 3rem), env(safe-area-inset-left));
+      background: transparent;
+      animation: fadeDown 0.9s var(--ease) both;
+    }
+
+    .topbar::before,
+    .topbar::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      transition: opacity 0.45s var(--ease);
+    }
+
+    .topbar::before {
       background: linear-gradient(
         180deg,
         rgba(255, 255, 255, 0.5) 0%,
@@ -67,27 +91,42 @@
         rgba(255, 255, 255, 0.04) 88%,
         rgba(255, 255, 255, 0) 100%
       );
-      animation: fadeDown 0.9s var(--ease) both;
+      opacity: 1;
     }
+
+    .topbar::after {
+      background: #fff;
+      opacity: 0;
+    }
+
+    .topbar.is-solid::before { opacity: 0; }
+    .topbar.is-solid::after { opacity: 1; }
 
     .brand {
       display: flex;
       align-items: center;
+      min-width: 0;
+      flex: 1 1 auto;
     }
 
     .brand svg {
       display: block;
-      height: 3.15rem;
-      width: auto;
+      width: min(9.5rem, 46vw);
+      height: auto;
+      aspect-ratio: 1339.13 / 445;
+      max-width: 100%;
     }
 
     .ig-link {
       display: inline-flex;
       align-items: center;
+      flex: 0 1 auto;
+      min-width: 0;
       gap: 0.5rem;
       color: #121212;
       font-size: 1.05rem;
       font-weight: 600;
+      white-space: nowrap;
       transition: color 0.25s, transform 0.25s var(--ease);
     }
 
@@ -99,33 +138,36 @@
     .ig-link svg { width: 22px; height: 22px; }
 
     @media (max-width: 640px) {
-      .brand svg { height: 2.45rem; }
-      .ig-link { font-size: 0.95rem; }
-      .ig-link svg { width: 20px; height: 20px; }
+      .brand svg { width: min(7.2rem, 42vw); }
+      .ig-link { font-size: 0.82rem; gap: 0.35rem; }
+      .ig-link svg { width: 18px; height: 18px; flex-shrink: 0; }
+    }
+
+    @media (max-width: 380px) {
+      .ig-link { font-size: 0.75rem; }
     }
 
     /* —— Hero —— */
     .hero {
       position: relative;
-      height: 100svh;
-      max-height: 100svh;
       min-height: 100svh;
       display: grid;
       align-items: end;
-      padding: clamp(5.5rem, 12vh, 7rem) clamp(1.25rem, 4vw, 3rem) clamp(2.5rem, 6vh, 4rem);
-      overflow: hidden;
+      padding: clamp(5.5rem, 12svh, 7rem) clamp(1rem, 4vw, 3rem) clamp(2.5rem, 6svh, 4rem);
+      overflow: clip;
       isolation: isolate;
     }
 
     .hero-bg {
       position: absolute;
-      inset: -12%;
+      inset: -8%;
       z-index: -2;
       background:
         linear-gradient(180deg, rgba(18, 18, 18, 0.35) 0%, rgba(18, 18, 18, 0.55) 45%, rgba(18, 18, 18, 0.92) 100%),
         url("https://images.unsplash.com/photo-1522163182402-834f871fd851?auto=format&fit=crop&w=1920&q=80") center / cover no-repeat;
-      transform: scale(1.06);
+      transform: scale(1.04);
       animation: kenBurns 18s ease-in-out infinite alternate;
+      will-change: transform;
     }
 
     .hero-grain {
@@ -166,12 +208,15 @@
 
     .hero-title {
       margin: 0 0 1rem;
+      max-width: 100%;
+      overflow: hidden;
     }
 
     .hero-title svg {
       display: block;
       height: auto;
-      width: min(100%, calc(clamp(8.5rem, 30vh, 13.5rem) * 770 / 620));
+      max-width: 100%;
+      width: min(100%, calc(clamp(8.5rem, 28svh, 13.5rem) * 770 / 620));
     }
 
     .hero-lead {
@@ -239,7 +284,8 @@
 
     /* —— About —— */
     .section {
-      padding: clamp(3.5rem, 8vw, 6rem) clamp(1.25rem, 4vw, 3rem);
+      padding: clamp(3.5rem, 8vw, 6rem) clamp(1rem, 4vw, 3rem);
+      overflow-x: clip;
     }
 
     .about {
@@ -418,18 +464,42 @@
     }
 
     @keyframes kenBurns {
-      from { transform: scale(1.06) translate(0, 0); }
-      to { transform: scale(1.14) translate(-1.5%, -1%); }
+      from { transform: scale(1.04) translate3d(0, 0, 0); }
+      to { transform: scale(1.1) translate3d(-1.2%, -0.8%, 0); }
     }
 
     @keyframes riseIn {
       from { opacity: 0; transform: translateY(28px); }
-      to { opacity: 1; transform: translateY(0); }
+      to { opacity: 1; transform: none; }
     }
 
     @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-12px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 820px) {
+      .hero-bg {
+        animation: none;
+        inset: 0;
+        transform: none;
+        will-change: auto;
+      }
+
+      .hero-title svg {
+        width: min(100%, 15rem);
+      }
+
+      .hero::before { inset: 0; }
+
+      .reveal[data-reveal="left"],
+      .reveal[data-reveal="right"] {
+        transform: translateY(28px);
+      }
+
+      .reveal.is-in { transform: none; }
+
+      html { scroll-behavior: auto; }
     }
 
     .thanks {
@@ -612,6 +682,25 @@
     const WHATSAPP_NUMBER = "5492966275693";
 
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    const topbar = document.querySelector(".topbar");
+    const hero = document.querySelector(".hero");
+    let topbarFrame = 0;
+
+    function syncTopbar() {
+      topbarFrame = 0;
+      const pastHero = hero.getBoundingClientRect().bottom <= topbar.getBoundingClientRect().bottom;
+      topbar.classList.toggle("is-solid", pastHero);
+    }
+
+    function requestTopbarSync() {
+      if (topbarFrame) return;
+      topbarFrame = requestAnimationFrame(syncTopbar);
+    }
+
+    syncTopbar();
+    window.addEventListener("scroll", requestTopbarSync, { passive: true });
+    window.addEventListener("resize", requestTopbarSync);
 
     const reveals = document.querySelectorAll(".reveal");
     if ("IntersectionObserver" in window) {
