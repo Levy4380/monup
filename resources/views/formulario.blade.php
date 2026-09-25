@@ -124,20 +124,14 @@
         button:hover { background: var(--orange-deep); }
 
         .note { margin: 0; font-size: 0.9rem; color: rgba(244, 242, 239, 0.55); }
-        .ok { margin: 0 0 1rem; color: #9be7b5; }
         .errors { margin: 0 0 1rem; padding-left: 1.1rem; color: #ffb4a8; }
     </style>
 </head>
 
 <body>
     <div class="wrap">
-        <p class="brand">MonUP</p>
-        <h1>Escribime y arrancamos</h1>
-        <p class="lead">Completá el formulario y te respondo a la brevedad.</p>
-
-        @if (session('success'))
-            <p class="ok" role="status">{{ session('success') }}</p>
-        @endif
+        <h1>Monup</h1>
+        <p class="lead">Responde estas preguntas para que te podamos dar la solución más personalizada</p>
 
         @if ($errors->any())
             <ul class="errors" role="alert">

@@ -5,7 +5,7 @@ use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'landing');
+Route::view('/', 'landing')->name('home');
 
 Route::view('/formulario', 'formulario')->name('formulario');
 

@@ -29,7 +29,7 @@ class ContactoController extends Controller
         ]);
 
         return redirect()
-            ->route('formulario')
-            ->with('success', 'Mensaje enviado. Te respondo pronto.');
+            ->route('home')
+            ->with('contacto_enviado', true);
     }
 }

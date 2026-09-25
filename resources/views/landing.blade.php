@@ -432,6 +432,73 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    .thanks {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: grid;
+      place-items: center;
+      padding: 1.25rem;
+    }
+
+    .thanks-backdrop {
+      position: absolute;
+      inset: 0;
+      border: 0;
+      background: rgba(18, 18, 18, 0.62);
+      cursor: pointer;
+    }
+
+    .thanks-card {
+      position: relative;
+      width: min(100%, 22rem);
+      padding: 2.25rem 1.75rem 1.9rem;
+      text-align: center;
+      background: var(--chalk);
+      color: var(--ink);
+      border-radius: 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    .thanks-tick {
+      width: 4.25rem;
+      height: 4.25rem;
+      margin: 0 auto 1.1rem;
+      border-radius: 50%;
+      background: var(--orange);
+      color: #fff;
+      display: grid;
+      place-items: center;
+    }
+
+    .thanks-tick svg { width: 2.15rem; height: 2.15rem; }
+
+    .thanks-card p {
+      margin: 0;
+      font-family: "Barlow Condensed", sans-serif;
+      font-weight: 800;
+      font-size: 1.85rem;
+      line-height: 1.05;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .thanks-close {
+      position: absolute;
+      top: 0.55rem;
+      right: 0.55rem;
+      width: 2rem;
+      height: 2rem;
+      border: 0;
+      background: transparent;
+      color: rgba(18, 18, 18, 0.55);
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .thanks-close:hover { color: var(--ink); }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation: none !important;
@@ -584,5 +651,32 @@
       window.open(url, "_blank", "noopener,noreferrer");
     });
   </script>
+  @if (session('contacto_enviado'))
+    <div class="thanks" role="dialog" aria-modal="true" aria-labelledby="thanks-title">
+      <button class="thanks-backdrop" type="button" data-thanks-close aria-label="Cerrar"></button>
+      <div class="thanks-card">
+        <button class="thanks-close" type="button" data-thanks-close aria-label="Cerrar">&times;</button>
+        <div class="thanks-tick" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12.5 9.5 17 19 7.5"/>
+          </svg>
+        </div>
+        <p id="thanks-title">Gracias por tus respuestas.</p>
+      </div>
+    </div>
+    <script>
+      document.querySelectorAll("[data-thanks-close]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          var dialog = document.querySelector(".thanks");
+          if (dialog) dialog.remove();
+        });
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key !== "Escape") return;
+        var dialog = document.querySelector(".thanks");
+        if (dialog) dialog.remove();
+      });
+    </script>
+  @endif
 </body>
 </html>
