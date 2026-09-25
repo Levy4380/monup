@@ -47,63 +47,73 @@
 
     /* —— Header —— */
     .topbar {
-      position: absolute;
-      inset: 0 0 auto;
-      z-index: 10;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 40;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.25rem clamp(1.25rem, 4vw, 3rem);
+      padding: 0.7rem clamp(1.25rem, 4vw, 3rem) 2.75rem;
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.42) 0%,
+        rgba(255, 255, 255, 0.18) 46%,
+        rgba(255, 255, 255, 0) 100%
+      );
       animation: fadeDown 0.9s var(--ease) both;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
     }
 
-    .brand svg { width: 42px; height: 42px; }
-
-    .brand-name {
-      font-family: "Barlow Condensed", sans-serif;
-      font-weight: 800;
-      font-size: 1.35rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+    .brand img {
+      height: 3.15rem;
+      width: auto;
     }
 
     .ig-link {
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
-      font-size: 0.9rem;
-      font-weight: 500;
-      opacity: 0.9;
-      transition: opacity 0.25s, transform 0.25s var(--ease);
+      gap: 0.5rem;
+      color: #121212;
+      font-size: 1.05rem;
+      font-weight: 600;
+      transition: color 0.25s, transform 0.25s var(--ease);
     }
 
     .ig-link:hover {
-      opacity: 1;
       transform: translateY(-1px);
       color: var(--orange);
     }
 
-    .ig-link svg { width: 18px; height: 18px; }
+    .ig-link svg { width: 22px; height: 22px; }
+
+    @media (max-width: 640px) {
+      .brand img { height: 2.45rem; }
+      .ig-link { font-size: 0.95rem; }
+      .ig-link svg { width: 20px; height: 20px; }
+    }
 
     /* —— Hero —— */
     .hero {
       position: relative;
+      height: 100svh;
+      max-height: 100svh;
       min-height: 100svh;
       display: grid;
       align-items: end;
       padding: clamp(5.5rem, 12vh, 7rem) clamp(1.25rem, 4vw, 3rem) clamp(2.5rem, 6vh, 4rem);
+      overflow: hidden;
       isolation: isolate;
     }
 
     .hero-bg {
       position: absolute;
-      inset: 0;
+      inset: -12%;
       z-index: -2;
       background:
         linear-gradient(180deg, rgba(18, 18, 18, 0.35) 0%, rgba(18, 18, 18, 0.55) 45%, rgba(18, 18, 18, 0.92) 100%),
@@ -121,38 +131,46 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -12%;
+      z-index: 0;
+      pointer-events: none;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.48) 0%,
+        rgba(255, 255, 255, 0.32) 26rem,
+        rgba(255, 255, 255, 0.1) 38rem,
+        rgba(18, 18, 18, 0.22) 46rem,
+        rgba(18, 18, 18, 0.55) 100%
+      );
+    }
+
     .hero-copy {
+      position: relative;
+      z-index: 1;
       max-width: 38rem;
       animation: riseIn 1s var(--ease) 0.15s both;
     }
 
     .hero-brand {
-      font-family: "Barlow Condensed", sans-serif;
-      font-weight: 800;
-      font-size: clamp(3.8rem, 14vw, 7.5rem);
-      line-height: 0.88;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-    }
-
-    .hero-brand span {
-      color: var(--orange);
+      display: none;
     }
 
     .hero-title {
-      font-family: "Barlow Condensed", sans-serif;
-      font-weight: 700;
-      font-size: clamp(1.45rem, 3.6vw, 2.1rem);
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      max-width: 18ch;
-      margin-bottom: 0.75rem;
+      margin: 0 0 1rem;
+    }
+
+    .hero-title img {
+      display: block;
+      height: clamp(8.5rem, 30vh, 13.5rem);
+      width: auto;
     }
 
     .hero-lead {
       font-size: clamp(1rem, 2.2vw, 1.15rem);
-      color: var(--mist);
+      color: rgba(18, 18, 18, 0.78);
       max-width: 32ch;
       margin-bottom: 1.75rem;
     }
@@ -188,6 +206,17 @@
     .btn-primary:hover {
       background: var(--orange-deep);
       transform: translateY(-2px);
+    }
+
+    .hero .btn-ghost {
+      color: #121212;
+      border-color: rgba(18, 18, 18, 0.35);
+    }
+
+    .hero .btn-ghost:hover {
+      background: #121212;
+      color: var(--orange);
+      border-color: var(--orange);
     }
 
     .btn-ghost {
@@ -368,6 +397,20 @@
 
     footer a:hover { color: var(--orange); }
 
+    .reveal {
+      opacity: 0;
+      transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+    }
+
+    .reveal[data-reveal="up"] { transform: translateY(42px); }
+    .reveal[data-reveal="left"] { transform: translateX(-52px); }
+    .reveal[data-reveal="right"] { transform: translateX(52px); }
+
+    .reveal.is-in {
+      opacity: 1;
+      transform: none;
+    }
+
     @keyframes kenBurns {
       from { transform: scale(1.06) translate(0, 0); }
       to { transform: scale(1.14) translate(-1.5%, -1%); }
@@ -389,20 +432,17 @@
         transition: none !important;
       }
       .hero-bg { transform: none; }
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="#top" aria-label="MonUP inicio">
-      <!-- Logo inspirado en @monupclimb -->
-      <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
-        <!-- Pico / A de la marca MonUP -->
-        <path d="M8 54 L30 8 L34 18 L18 54 Z" fill="#f15a24"/>
-        <path d="M30 8 L56 54 L42 54 L30 24 Z" fill="#1a1a1a"/>
-        <path d="M30 8 L34 18 L30 24 Z" fill="#f15a24"/>
-      </svg>
-      <span class="brand-name">MonUP</span>
+    <a class="brand" href="#top">
+      <img src="{{ asset('logo-black-horizontal.svg') }}" alt="MonUP">
     </a>
     <a class="ig-link" href="https://www.instagram.com/monupclimb/" target="_blank" rel="noopener noreferrer">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
@@ -420,10 +460,12 @@
       <div class="hero-grain" aria-hidden="true"></div>
       <div class="hero-copy">
         <p class="hero-brand">Mon<span>UP</span></p>
-        <h1 class="hero-title">Entrenamiento de escalada 100% online</h1>
+        <h1 class="hero-title">
+          <img src="{{ asset('logo-black.svg') }}" alt="Entrenamiento de escalada 100% online">
+        </h1>
         <p class="hero-lead">Entendé cómo subir tu grado con un plan pensado para vos.</p>
         <div class="cta-row">
-          <a class="btn btn-primary" href="#contacto">Empezar ahora</a>
+          <a class="btn btn-primary" href="#contacto">Subir de grado</a>
           <a class="btn btn-ghost" href="https://www.instagram.com/monupclimb/" target="_blank" rel="noopener noreferrer">Ver Instagram</a>
         </div>
       </div>
@@ -431,7 +473,7 @@
 
     <section class="section about" id="metodo" aria-labelledby="about-title">
       <div class="about-inner">
-        <div>
+        <div class="reveal" data-reveal="left">
           <p class="eyebrow">El método</p>
           <h2 id="about-title">Subí de grado con foco y constancia</h2>
           <p>
@@ -440,7 +482,7 @@
             solo del tiempo en el muro.
           </p>
         </div>
-        <div class="about-visual">
+        <div class="about-visual reveal" data-reveal="right">
           <img
             src="https://images.unsplash.com/photo-1564769662533-4f00a87b4056?auto=format&fit=crop&w=1200&q=80"
             alt="Persona escalando en boulder indoor"
@@ -453,7 +495,7 @@
     </section>
 
     <section class="section contact" id="contacto" aria-labelledby="contact-title">
-      <div class="contact-inner">
+      <div class="contact-inner reveal" data-reveal="up">
         <p class="eyebrow">Contacto</p>
         <h2 id="contact-title">Escribime y arrancamos</h2>
         <p class="section-lead">
@@ -475,7 +517,7 @@
             Mensaje
             <textarea name="mensaje" id="mensaje" required placeholder="Contame tu nivel, objetivos o dudas…"></textarea>
           </label>
-          <p class="form-note">Hablemos por WhatsApp.</p>
+          <p class="form-note" style="opacity: 0;">Hablemos por WhatsApp.</p>
           <button class="btn btn-primary btn-submit" type="submit">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M12.04 2C6.58 2 2.15 6.4 2.15 11.83c0 2.08.62 4.02 1.7 5.65L2 22l4.7-1.77a9.8 9.8 0 0 0 5.34 1.56h.01c5.46 0 9.89-4.4 9.89-9.83C21.94 6.4 17.5 2 12.04 2Zm5.74 13.95c-.24.67-1.4 1.23-1.93 1.31-.5.07-1.12.1-1.81-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.78-4.17-4.93-4.36-.14-.2-1.2-1.6-1.2-3.05 0-1.46.76-2.17 1.03-2.47.27-.3.59-.37.79-.37h.57c.18 0 .42-.07.66.5.24.58.82 2 .89 2.15.07.14.12.32.02.51-.1.2-.15.32-.3.49-.14.17-.3.38-.43.51-.14.14-.29.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.94 1.96 1.23 2.24 1.37.28.14.44.12.6-.07.17-.2.7-.81.89-1.09.18-.28.37-.23.62-.14.26.1 1.64.77 1.92.91.28.14.47.21.54.33.07.12.07.7-.17 1.37Z"/>
@@ -496,6 +538,20 @@
     const WHATSAPP_NUMBER = "5492966691988";
 
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    const reveals = document.querySelectorAll(".reveal");
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-in");
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.2, rootMargin: "0px 0px -8% 0px" });
+      reveals.forEach(function (el) { observer.observe(el); });
+    } else {
+      reveals.forEach(function (el) { el.classList.add("is-in"); });
+    }
 
     document.getElementById("contact-form").addEventListener("submit", function (event) {
       event.preventDefault();
