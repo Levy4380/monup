@@ -442,7 +442,7 @@
 <body>
   <header class="topbar">
     <a class="brand" href="#top">
-      <img src="{{ asset('logo-black-horizontal.svg') }}" alt="MonUP">
+      <img src="/logo-black-horizontal.svg" alt="MonUP">
     </a>
     <a class="ig-link" href="https://www.instagram.com/monupclimb/" target="_blank" rel="noopener noreferrer">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
@@ -461,7 +461,7 @@
       <div class="hero-copy">
         <p class="hero-brand">Mon<span>UP</span></p>
         <h1 class="hero-title">
-          <img src="{{ asset('logo-black.svg') }}" alt="Entrenamiento de escalada 100% online">
+          <img src="/logo-black.svg" alt="Entrenamiento de escalada 100% online">
         </h1>
         <p class="hero-lead">Entendé cómo subir tu grado con un plan pensado para vos.</p>
         <div class="cta-row">
