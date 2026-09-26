@@ -207,9 +207,23 @@
     }
 
     .hero-title {
+      position: relative;
       margin: 0 0 1rem;
       max-width: 100%;
       overflow: hidden;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      clip-path: inset(50%);
+      white-space: nowrap;
+      border: 0;
     }
 
     .hero-title svg {
@@ -300,7 +314,7 @@
       display: grid;
       gap: clamp(2rem, 5vw, 4rem);
       grid-template-columns: 1fr;
-      align-items: center;
+      align-items: stretch;
     }
 
     @media (min-width: 820px) {
@@ -333,9 +347,32 @@
       max-width: 42ch;
     }
 
+    .method-steps {
+      list-style: none;
+      display: grid;
+      gap: 1.65rem;
+      margin-top: 1.75rem;
+    }
+
+    .method-steps h3 {
+      font-family: "Barlow Condensed", sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.45rem, 2.6vw, 1.85rem);
+      line-height: 1;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--chalk);
+      margin-bottom: 0.45rem;
+    }
+
+    .method-steps p {
+      max-width: none;
+    }
+
     .about-visual {
       position: relative;
       min-height: 280px;
+      height: 100%;
       overflow: hidden;
       border-radius: 2px;
     }
@@ -605,7 +642,8 @@
       <div class="hero-copy">
         <p class="hero-brand">Mon<span>UP</span></p>
         <h1 class="hero-title">
-          {!! str_replace('<svg ', '<svg role="img" aria-label="Entrenamiento de escalada 100% online" ', file_get_contents(public_path('logo-black.svg'))) !!}
+          <span class="visually-hidden">Entrenamiento de escalada 100% online</span>
+          {!! str_replace('<svg ', '<svg aria-hidden="true" focusable="false" ', file_get_contents(public_path('logo-black.svg'))) !!}
         </h1>
         <p class="hero-lead">Entendé cómo subir tu grado con un plan pensado para vos.</p>
         <div class="cta-row">
@@ -618,13 +656,30 @@
     <section class="section about" id="metodo" aria-labelledby="about-title">
       <div class="about-inner">
         <div class="reveal" data-reveal="left">
-          <p class="eyebrow">El método</p>
-          <h2 id="about-title">Subí de grado con foco y constancia</h2>
-          <p>
-            Entrenamiento personalizado, feedback claro y progreso medible.
-            Ideal si querés mejorar técnica, fuerza y lectura de vías sin depender
-            solo del tiempo en el muro.
-          </p>
+          <p class="eyebrow">Subí de grado</p>
+          <h2 id="about-title">El método</h2>
+          <ol class="method-steps">
+            <li>
+              <h3>1) Evaluamos</h3>
+              <p>Primero entendemos tu nivel, experiencia, objetivos, disponibilidad y principales limitaciones. El punto de partida es diferente para cada persona.</p>
+            </li>
+            <li>
+              <h3>2) Planificamos</h3>
+              <p>Armamos tu plan de entrenamiento a medida, no una plantilla genérica.</p>
+            </li>
+            <li>
+              <h3>3) Entrenamos</h3>
+              <p>No se trata de acumular ejercicios. Buscamos que cada sesión tenga una intención clara y que puedas entender cómo el entrenamiento se relaciona con tu rendimiento.</p>
+            </li>
+            <li>
+              <h3>4) Medimos</h3>
+              <p>Registramos tu evolución para saber qué está funcionando, qué necesita modificarse y cómo estás respondiendo al entrenamiento.</p>
+            </li>
+            <li>
+              <h3>5) Progresamos</h3>
+              <p>Tu entrenamiento no sigue una rutina fija. Se adapta a tu evolución, a tus objetivos y a las demandas que presenta tu escalada.</p>
+            </li>
+          </ol>
         </div>
         <div class="about-visual reveal" data-reveal="right">
           <img
